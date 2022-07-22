@@ -20,7 +20,7 @@ class Calibrator:
 
             try:
                 output_image = cv2.drawMarker(output_image, tuple(
-                    sphere_correspondence.astype(int)), (0, 0, 255), cv2.MARKER_CROSS, markerSize=20, thickness=2)
+                    sphere_correspondence.astype(int)), (0, 0, 255), cv2.MARKER_CROSS, markerSize=25, thickness=2)
             except Exception as exception:
                 logging.error(exception)
                 logging.error("An exception occurred with image %i sphere %i" % (image_id, i))
@@ -53,7 +53,7 @@ class Calibrator:
                 sphere_position_2d = np.array(
                     [projection[0] / projection[2], projection[1] / projection[2]])
                 output_image = cv2.drawMarker(output_image, tuple(
-                    sphere_position_2d.astype(int)), (255, 0, 0), cv2.MARKER_CROSS, markerSize=20, thickness=2)
+                    sphere_position_2d.astype(int)), (255, 0, 0), cv2.MARKER_CROSS, markerSize=15, thickness=2)
             except Exception as exception:
                 logging.error(exception)
                 logging.error("An exception occurred with image %i sphere %i", image_id, i)
@@ -64,8 +64,8 @@ class Calibrator:
     def execute_cb(self, image_id, orientation, translation, sphere_correspondences):
         subfolder = str(HELIX_SAMPLING_RATE)
         projected_images_path = os.path.join(BASE_PATH, "projected")
-        output_images_path = os.path.join(BASE_PATH, "analysed", subfolder)
-        output_guess_images_path = os.path.join(BASE_PATH, "analysed_guess")
+        output_images_path = os.path.join(BASE_PATH, "calibrated", subfolder)
+        output_guess_images_path = os.path.join(BASE_PATH, "calibration-guess")
 
         try:
             if not os.path.exists(output_images_path):
