@@ -51,12 +51,15 @@ class Projector:
         P = self.get_projection_matrix(orientation=orientation, translation=translation)
 
         # determine circle diameter on image plane beforehand
+        # We need a P matrix with unit orientation
+        P_circle = self.get_projection_matrix(orientation=np.array([0.0, 0.0, 0.0]), translation=translation)
         point_begin = np.array([0.0, 0.0, 0.0, 1.0])
-        point_end = np.array([0.0, 0.0, SPHERE_DIAMETER, 1.0])
-        projection_begin = self.project_point(P=P, point=point_begin)
-        projection_end = self.project_point(P=P, point=point_end)
+        point_end = np.array([0.0, SPHERE_DIAMETER, 0.0, 1.0])
+        projection_begin = self.project_point(P=P_circle, point=point_begin)
+        projection_end = self.project_point(P=P_circle, point=point_end)
         circle_diameter = np.linalg.norm(projection_begin - projection_end)
         circle_radius = int(circle_diameter / 2.0)
+        print("cirlce radius: ", circle_radius)
 
         # project spheres onto image plane with intrinsic camera matrix
         circles = []
