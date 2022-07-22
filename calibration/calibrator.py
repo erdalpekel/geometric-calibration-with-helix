@@ -3,7 +3,6 @@ from scipy.spatial.transform import Rotation
 import cv2
 import os
 from math import sin, cos
-import random
 import logging
 
 from constants import BASE_PATH, INTRINSIC_MATRIX, SPHERES, HELIX_PHI, HELIX_OMEGA, HELIX_RADIUS, HELIX_HEIGHT, HELIX_SAMPLING_RATE, COST_THRESHOLD_PER_SPHERE
@@ -156,3 +155,5 @@ class Calibrator:
                         N_linspace, image_id, output_image_path, output_image)
 
         logging.info("calibration successful.")
+
+        return cost_sum
